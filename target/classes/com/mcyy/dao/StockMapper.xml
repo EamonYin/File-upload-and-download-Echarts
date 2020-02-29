@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcyy.dao.mapper.StockMapper">
+  <resultMap id="BaseResultMap" type="com.mcyy.entity.Stock">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="s_medicineid" jdbcType="INTEGER" property="sMedicineid" />
+    <result column="s_count" jdbcType="INTEGER" property="sCount" />
+    <result column="s_data" jdbcType="DATE" property="sData" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    s_id, s_medicineid, s_count, s_data
+  </sql>
+  <select id="selectByExample" parameterType="com.mcyy.entity.StockExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from stock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stock
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from stock
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcyy.entity.StockExample">
+    delete from stock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcyy.entity.Stock">
+    insert into stock (s_id, s_medicineid, s_count, 
+      s_data)
+    values (#{sId,jdbcType=INTEGER}, #{sMedicineid,jdbcType=INTEGER}, #{sCount,jdbcType=INTEGER}, 
+      #{sData,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcyy.entity.Stock">
+    insert into stock
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="sMedicineid != null">
+        s_medicineid,
+      </if>
+      <if test="sCount != null">
+        s_count,
+      </if>
+      <if test="sData != null">
+        s_data,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="sMedicineid != null">
+        #{sMedicineid,jdbcType=INTEGER},
+      </if>
+      <if test="sCount != null">
+        #{sCount,jdbcType=INTEGER},
+      </if>
+      <if test="sData != null">
+        #{sData,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcyy.entity.StockExample" resultType="java.lang.Long">
+    select count(*) from stock
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update stock
+    <set>
+      <if test="record.sId != null">
+        s_id = #{record.sId,jdbcType=INTEGER},
+      </if>
+      <if test="record.sMedicineid != null">
+        s_medicineid = #{record.sMedicineid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sCount != null">
+        s_count = #{record.sCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.sData != null">
+        s_data = #{record.sData,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update stock
+    set s_id = #{record.sId,jdbcType=INTEGER},
+      s_medicineid = #{record.sMedicineid,jdbcType=INTEGER},
+      s_count = #{record.sCount,jdbcType=INTEGER},
+      s_data = #{record.sData,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcyy.entity.Stock">
+    update stock
+    <set>
+      <if test="sMedicineid != null">
+        s_medicineid = #{sMedicineid,jdbcType=INTEGER},
+      </if>
+      <if test="sCount != null">
+        s_count = #{sCount,jdbcType=INTEGER},
+      </if>
+      <if test="sData != null">
+        s_data = #{sData,jdbcType=DATE},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcyy.entity.Stock">
+    update stock
+    set s_medicineid = #{sMedicineid,jdbcType=INTEGER},
+      s_count = #{sCount,jdbcType=INTEGER},
+      s_data = #{sData,jdbcType=DATE}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

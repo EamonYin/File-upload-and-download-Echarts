@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcyy.dao.mapper.MedicineMapper">
+  <resultMap id="BaseResultMap" type="com.mcyy.entity.Medicine">
+    <id column="m_id" jdbcType="INTEGER" property="mId" />
+    <result column="m_medicineid" jdbcType="INTEGER" property="mMedicineid" />
+    <result column="m_name" jdbcType="VARCHAR" property="mName" />
+    <result column="m_state" jdbcType="VARCHAR" property="mState" />
+    <result column="m_price" jdbcType="DECIMAL" property="mPrice" />
+    <result column="m_inventory" jdbcType="INTEGER" property="mInventory" />
+    <result column="m_pastdate" jdbcType="DATE" property="mPastdate" />
+    <result column="m_classify" jdbcType="VARCHAR" property="mClassify" />
+    <result column="m_remark" jdbcType="VARCHAR" property="mRemark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    m_id, m_medicineid, m_name, m_state, m_price, m_inventory, m_pastdate, m_classify, 
+    m_remark
+  </sql>
+  <select id="selectByExample" parameterType="com.mcyy.entity.MedicineExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from medicine
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from medicine
+    where m_id = #{mId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from medicine
+    where m_id = #{mId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcyy.entity.MedicineExample">
+    delete from medicine
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcyy.entity.Medicine">
+    insert into medicine (m_id, m_medicineid, m_name, 
+      m_state, m_price, m_inventory, 
+      m_pastdate, m_classify, m_remark
+      )
+    values (#{mId,jdbcType=INTEGER}, #{mMedicineid,jdbcType=INTEGER}, #{mName,jdbcType=VARCHAR}, 
+      #{mState,jdbcType=VARCHAR}, #{mPrice,jdbcType=DECIMAL}, #{mInventory,jdbcType=INTEGER}, 
+      #{mPastdate,jdbcType=DATE}, #{mClassify,jdbcType=VARCHAR}, #{mRemark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcyy.entity.Medicine">
+    insert into medicine
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        m_id,
+      </if>
+      <if test="mMedicineid != null">
+        m_medicineid,
+      </if>
+      <if test="mName != null">
+        m_name,
+      </if>
+      <if test="mState != null">
+        m_state,
+      </if>
+      <if test="mPrice != null">
+        m_price,
+      </if>
+      <if test="mInventory != null">
+        m_inventory,
+      </if>
+      <if test="mPastdate != null">
+        m_pastdate,
+      </if>
+      <if test="mClassify != null">
+        m_classify,
+      </if>
+      <if test="mRemark != null">
+        m_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="mId != null">
+        #{mId,jdbcType=INTEGER},
+      </if>
+      <if test="mMedicineid != null">
+        #{mMedicineid,jdbcType=INTEGER},
+      </if>
+      <if test="mName != null">
+        #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mState != null">
+        #{mState,jdbcType=VARCHAR},
+      </if>
+      <if test="mPrice != null">
+        #{mPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mInventory != null">
+        #{mInventory,jdbcType=INTEGER},
+      </if>
+      <if test="mPastdate != null">
+        #{mPastdate,jdbcType=DATE},
+      </if>
+      <if test="mClassify != null">
+        #{mClassify,jdbcType=VARCHAR},
+      </if>
+      <if test="mRemark != null">
+        #{mRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcyy.entity.MedicineExample" resultType="java.lang.Long">
+    select count(*) from medicine
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update medicine
+    <set>
+      <if test="record.mId != null">
+        m_id = #{record.mId,jdbcType=INTEGER},
+      </if>
+      <if test="record.mMedicineid != null">
+        m_medicineid = #{record.mMedicineid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mName != null">
+        m_name = #{record.mName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mState != null">
+        m_state = #{record.mState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mPrice != null">
+        m_price = #{record.mPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mInventory != null">
+        m_inventory = #{record.mInventory,jdbcType=INTEGER},
+      </if>
+      <if test="record.mPastdate != null">
+        m_pastdate = #{record.mPastdate,jdbcType=DATE},
+      </if>
+      <if test="record.mClassify != null">
+        m_classify = #{record.mClassify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mRemark != null">
+        m_remark = #{record.mRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update medicine
+    set m_id = #{record.mId,jdbcType=INTEGER},
+      m_medicineid = #{record.mMedicineid,jdbcType=INTEGER},
+      m_name = #{record.mName,jdbcType=VARCHAR},
+      m_state = #{record.mState,jdbcType=VARCHAR},
+      m_price = #{record.mPrice,jdbcType=DECIMAL},
+      m_inventory = #{record.mInventory,jdbcType=INTEGER},
+      m_pastdate = #{record.mPastdate,jdbcType=DATE},
+      m_classify = #{record.mClassify,jdbcType=VARCHAR},
+      m_remark = #{record.mRemark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcyy.entity.Medicine">
+    update medicine
+    <set>
+      <if test="mMedicineid != null">
+        m_medicineid = #{mMedicineid,jdbcType=INTEGER},
+      </if>
+      <if test="mName != null">
+        m_name = #{mName,jdbcType=VARCHAR},
+      </if>
+      <if test="mState != null">
+        m_state = #{mState,jdbcType=VARCHAR},
+      </if>
+      <if test="mPrice != null">
+        m_price = #{mPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="mInventory != null">
+        m_inventory = #{mInventory,jdbcType=INTEGER},
+      </if>
+      <if test="mPastdate != null">
+        m_pastdate = #{mPastdate,jdbcType=DATE},
+      </if>
+      <if test="mClassify != null">
+        m_classify = #{mClassify,jdbcType=VARCHAR},
+      </if>
+      <if test="mRemark != null">
+        m_remark = #{mRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcyy.entity.Medicine">
+    update medicine
+    set m_medicineid = #{mMedicineid,jdbcType=INTEGER},
+      m_name = #{mName,jdbcType=VARCHAR},
+      m_state = #{mState,jdbcType=VARCHAR},
+      m_price = #{mPrice,jdbcType=DECIMAL},
+      m_inventory = #{mInventory,jdbcType=INTEGER},
+      m_pastdate = #{mPastdate,jdbcType=DATE},
+      m_classify = #{mClassify,jdbcType=VARCHAR},
+      m_remark = #{mRemark,jdbcType=VARCHAR}
+    where m_id = #{mId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mcyy.dao.mapper.ExcelMapper">
+  <resultMap id="BaseResultMap" type="com.mcyy.entity.Excel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="salmedicinename" jdbcType="VARCHAR" property="salmedicinename" />
+    <result column="salamount" jdbcType="VARCHAR" property="salamount" />
+    <result column="salprice" jdbcType="VARCHAR" property="salprice" />
+    <result column="saldate" jdbcType="TIMESTAMP" property="saldate" />
+    <result column="salname" jdbcType="VARCHAR" property="salname" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, salmedicinename, salamount, salprice, saldate, salname
+  </sql>
+  <select id="selectByExample" parameterType="com.mcyy.entity.ExcelExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from excel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from excel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from excel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mcyy.entity.ExcelExample">
+    delete from excel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mcyy.entity.Excel">
+    insert into excel (id, salmedicinename, salamount, 
+      salprice, saldate, salname
+      )
+    values (#{id,jdbcType=INTEGER}, #{salmedicinename,jdbcType=VARCHAR}, #{salamount,jdbcType=VARCHAR}, 
+      #{salprice,jdbcType=VARCHAR}, #{saldate,jdbcType=TIMESTAMP}, #{salname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mcyy.entity.Excel">
+    insert into excel
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="salmedicinename != null">
+        salmedicinename,
+      </if>
+      <if test="salamount != null">
+        salamount,
+      </if>
+      <if test="salprice != null">
+        salprice,
+      </if>
+      <if test="saldate != null">
+        saldate,
+      </if>
+      <if test="salname != null">
+        salname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="salmedicinename != null">
+        #{salmedicinename,jdbcType=VARCHAR},
+      </if>
+      <if test="salamount != null">
+        #{salamount,jdbcType=VARCHAR},
+      </if>
+      <if test="salprice != null">
+        #{salprice,jdbcType=VARCHAR},
+      </if>
+      <if test="saldate != null">
+        #{saldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salname != null">
+        #{salname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mcyy.entity.ExcelExample" resultType="java.lang.Long">
+    select count(*) from excel
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update excel
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.salmedicinename != null">
+        salmedicinename = #{record.salmedicinename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salamount != null">
+        salamount = #{record.salamount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salprice != null">
+        salprice = #{record.salprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saldate != null">
+        saldate = #{record.saldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.salname != null">
+        salname = #{record.salname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update excel
+    set id = #{record.id,jdbcType=INTEGER},
+      salmedicinename = #{record.salmedicinename,jdbcType=VARCHAR},
+      salamount = #{record.salamount,jdbcType=VARCHAR},
+      salprice = #{record.salprice,jdbcType=VARCHAR},
+      saldate = #{record.saldate,jdbcType=TIMESTAMP},
+      salname = #{record.salname,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mcyy.entity.Excel">
+    update excel
+    <set>
+      <if test="salmedicinename != null">
+        salmedicinename = #{salmedicinename,jdbcType=VARCHAR},
+      </if>
+      <if test="salamount != null">
+        salamount = #{salamount,jdbcType=VARCHAR},
+      </if>
+      <if test="salprice != null">
+        salprice = #{salprice,jdbcType=VARCHAR},
+      </if>
+      <if test="saldate != null">
+        saldate = #{saldate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="salname != null">
+        salname = #{salname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mcyy.entity.Excel">
+    update excel
+    set salmedicinename = #{salmedicinename,jdbcType=VARCHAR},
+      salamount = #{salamount,jdbcType=VARCHAR},
+      salprice = #{salprice,jdbcType=VARCHAR},
+      saldate = #{saldate,jdbcType=TIMESTAMP},
+      salname = #{salname,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
