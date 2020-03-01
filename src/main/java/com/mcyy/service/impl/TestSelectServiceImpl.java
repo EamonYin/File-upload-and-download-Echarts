@@ -2,12 +2,10 @@ package com.mcyy.service.impl;
 
 //import com.mcyy.dao.mapper.testMapper;
 //import com.mcyy.entity.User;
+import com.mcyy.dao.mapper.ExcelMapper;
 import com.mcyy.dao.mapper.SalesmessageMapper;
 import com.mcyy.dao.mapper.UserMapper;
-import com.mcyy.entity.Salesmessage;
-import com.mcyy.entity.SalesmessageExample;
-import com.mcyy.entity.User;
-import com.mcyy.entity.UserExample;
+import com.mcyy.entity.*;
 import com.mcyy.service.TestSelectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -28,6 +26,8 @@ public class TestSelectServiceImpl implements TestSelectService {
     UserMapper userMapper;
     @Autowired
     SalesmessageMapper salesmessageMapper;
+    @Autowired
+    ExcelMapper excelMapper;
 
     @Override
     public List<User> TestSelectSer() {
@@ -70,6 +70,22 @@ public class TestSelectServiceImpl implements TestSelectService {
     @Override
     public List<String> SelectSaleTime() {
         return salesmessageMapper.SelectSaleTime();
+    }
+
+    //把Excel插入到数据库
+    @Override
+    public int InsertExcel(Excel record) {
+        return excelMapper.insert(record);
+    }
+
+    @Override
+    public List<Excel> ExcelIsNull(ExcelExample example) {
+        return excelMapper.selectByExample(example);
+    }
+
+    @Override
+    public int DeleteExcel() {
+        return excelMapper.DeleteExcel();
     }
 
 

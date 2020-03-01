@@ -1,18 +1,23 @@
 package com.mcyy.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
+
 import java.util.Date;
 
 public class Excel {
+    @ExcelProperty(value = "id", index = 0)
     private Integer id;
-
+    @ExcelProperty(value = "药品名称" , index = 1)
     private String salmedicinename;
-
+    @ExcelProperty(value = "销售件数", index = 2)
     private String salamount;
-
+    @ExcelProperty(value ="药品价格" , index = 3)
     private String salprice;
-
+    @DateTimeFormat("yyyy-MM-dd hh:mm:ss")
+    @ExcelProperty(value ="销售日期" , index = 4)
     private Date saldate;
-
+    @ExcelProperty(value = "用户名" , index = 5)
     private String salname;
 
     public Integer getId() {

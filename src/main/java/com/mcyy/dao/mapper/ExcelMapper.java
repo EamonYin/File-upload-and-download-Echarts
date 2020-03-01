@@ -27,4 +27,7 @@ public interface ExcelMapper {
     int updateByPrimaryKeySelective(Excel record);
 
     int updateByPrimaryKey(Excel record);
+
+    //清空Excel表
+    int DeleteExcel();
 }

@@ -225,4 +225,9 @@
       salname = #{salname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <!--清空Excel表-->
+  <delete id="DeleteExcel">
+    Delete from `excel` where 1=1
+  </delete>
 </mapper>

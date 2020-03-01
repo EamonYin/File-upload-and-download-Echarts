@@ -2,9 +2,7 @@ package com.mcyy.service;
 
 //import com.mcyy.entity.User;
 
-import com.mcyy.entity.Inventory;
-import com.mcyy.entity.Salesmessage;
-import com.mcyy.entity.User;
+import com.mcyy.entity.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -30,4 +28,12 @@ public interface TestSelectService {
     //查询数据库时间
     List<String> SelectSaleTime();
 
+    //把Excel插入到数据库
+    int InsertExcel(Excel record);
+
+    //查询数据库Excel表是不是有数据
+    List<Excel> ExcelIsNull(ExcelExample example);
+
+    //清空Excel表所有数据
+    int DeleteExcel();
 }
